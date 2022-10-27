@@ -3,8 +3,8 @@ name: Android Build Release Workflow
 on:
   push:
     branches: [ "main" ]
-    tags:
-      - "*"
+#     tags:
+#       - "*"
   pull_request:
     branches: [ "main" ]
 
@@ -46,7 +46,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: App
-        path: ${{ github.workspace}} /app/build/outputs/apk/release/app-release.apk
+        path: app/build/outputs/apk/release/app-release.apk
       
     - name: Checkout code
       uses: actions/checkout@v2
@@ -59,7 +59,7 @@ jobs:
         #VERSION: ${{ github.ref }}
       with:
         tag_name: ${{ github.run_number }}
-        release_name: V${{ github.run_number }}
+        release_name: V 1.${{ github.run_number }}
         draft: false
         prerelease: false
       
