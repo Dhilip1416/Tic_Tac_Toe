@@ -32,22 +32,7 @@ jobs:
       with:
         name: apk
         path: app/build/outputs/apk/debug/app-debug.apk 
-      
-#     - name: Checkout code
-#       uses: actions/checkout@v2
-      
-#     - name: Create Release
-#       id: create_release
-#       uses: actions/create-release@v1
-#       env:
-#         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-#         #VERSION: ${{ github.ref }}
-#       with:
-#         tag_name: ${{ github.run_number }}
-#         release_name: V 1.${{ github.run_number }}
-#         draft: false
-#         prerelease: false
-
+           
   release:
     name: Release APK
     needs: apk
@@ -75,4 +60,3 @@ jobs:
           asset_path: apk/app-debug.apk
           asset_name: ${{ github.event.repository.name }}.apk
           asset_content_type: application/zip
-      
