@@ -46,7 +46,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: App
-        path: app/build/outputs/apk/release/app-release.apk
+        path: app/build/intermediates/apk/debug/app-debug.apk
       
     - name: Checkout code
       uses: actions/checkout@v2
