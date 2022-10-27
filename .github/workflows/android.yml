@@ -1,10 +1,10 @@
-name: Android CI
+name: Android Build Release Workflow
 
 on:
   push:
     branches: [ "main" ]
     tags:
-      -'v*'
+      - "*"
   pull_request:
     branches: [ "main" ]
 
@@ -27,6 +27,27 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew build
       
+    - name: Unit tests
+      run: bash ./gradlew test --stacktrace
+      
+    - name: Run Tests
+      run: ./gradlew test
+
+    - name: Build Project
+      run: ./gradlew assemble
+
+    - name: Build Debug APK
+      run: bash ./gradlew :app:assembleDebug
+
+    - name: build release
+      run: ./gradlew assembleRelease
+
+    - name: Upload APK
+      uses: actions/upload-artifact@v2
+      with:
+        name: App
+        path: ${{ github.workspace}} /app/build/outputs/apk/release/app-release.apk
+      
     - name: Checkout code
       uses: actions/checkout@v2
       
@@ -37,6 +58,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
       with:
         tag_name: ${{ github.ref }}
-        release_name: Release ${{ github.ref }}
+        release_name: ${{ github.ref }}
       
       
